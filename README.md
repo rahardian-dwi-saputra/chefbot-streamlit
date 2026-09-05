@@ -23,7 +23,7 @@
 ## 🛠️ Teknologi yang Digunakan
 
 - **Bahasa Pemrograman:** [Python 3.9+](https://www.python.org/)
-- **Environment Manager:** [Conda](https://docs.conda.io/) / `venv`
+- **Environment Manager:** [Conda](https://docs.conda.io/)
 - **Frontend / Framework:** [Streamlit](https://streamlit.io/)
 - **AI / LLM Engine:** [Google GenAI SDK](https://github.com/googleapis/python-genai) (`google-genai`)
 - **Model LLM:** `gemini-3.6-flash`
@@ -37,7 +37,7 @@ Ikuti langkah-langkah di bawah ini untuk menjalankan proyek secara lokal di komp
 ### 1. Kloning Repositori
 
 ```bash
-git clone [https://github.com/rahardian-dwi-saputra/chefbot-streamlit.git](https://github.com/rahardian-dwi-saputra/chefbot-streamlit.git)
+git clone https://github.com/rahardian-dwi-saputra/chefbot-streamlit.git
 cd chefbot-streamlit
 ```
 
