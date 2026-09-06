@@ -3,7 +3,6 @@ import streamlit as st
 from google import genai
 from google.genai import types
 
-# 1. Konfigurasi Halaman Streamlit
 st.set_page_config(
     page_title="ChefBot - Resep dari Bahan Dapur",
     page_icon="🍳",
@@ -13,7 +12,7 @@ st.set_page_config(
 st.title("🍳 ChefBot: Kreasikan Resep Dapurmu")
 st.caption("Masukkan bahan-bahan yang kamu punya, ChefBot akan meracik resepnya!")
 
-# 2. Pengaturan API Key
+
 api_key = os.environ.get("GEMINI_API_KEY") or st.sidebar.text_input("Masukkan Gemini API Key:", type="password")
 
 if not api_key:
@@ -22,7 +21,6 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
-# 3. Prompt Sistem untuk Mengarahkan Karakter ChefBot
 SYSTEM_INSTRUCTION = """
 Anda adalah ChefBot, seorang koki kreatif dan ramah.
 Tugas utama Anda adalah memberikan rekomendasi resep masakan berdasarkan bahan-bahan yang diberikan oleh pengguna.
@@ -39,22 +37,17 @@ Aturan Jawaban:
 5. Gunakan bahasa Indonesia yang santai, komunikatif, dan menggugah selera.
 """
 
-# 4. Inisialisasi Riwayat Obrolan
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Menampilkan Riwayat Percakapan
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# 5. Input Pengguna & Pemrosesan
 if user_prompt := st.chat_input("Contoh: Telur, tahu, kecap, cabai rawit..."):
-    # Tampilkan pesan pengguna
     st.chat_message("user").markdown(user_prompt)
     st.session_state.messages.append({"role": "user", "content": user_prompt})
 
-    # Konversi riwayat ke format SDK Google GenAI
     contents = []
     for msg in st.session_state.messages:
         role = "user" if msg["role"] == "user" else "model"
@@ -65,7 +58,6 @@ if user_prompt := st.chat_input("Contoh: Telur, tahu, kecap, cabai rawit..."):
             )
         )
 
-    # Panggil Gemini API
     with st.chat_message("assistant"):
         with st.spinner("ChefBot sedang meracik resep..."):
             try:
@@ -79,8 +71,7 @@ if user_prompt := st.chat_input("Contoh: Telur, tahu, kecap, cabai rawit..."):
                 )
                 bot_response = response.text
                 st.markdown(bot_response)
-                
-                # Simpan respons bot ke session state
+               
                 st.session_state.messages.append({"role": "assistant", "content": bot_response})
             except Exception as e:
                 st.error(f"Terjadi kesalahan saat menghubungkan ke API: {e}")
